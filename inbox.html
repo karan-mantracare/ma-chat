@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MantraAssist - Inbox</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <h2>MantraAssist</h2>
+            </div>
+            
+            <div class="user-profile">
+                <div class="avatar">D</div>
+                <div class="user-info">
+                    <span class="user-name">Demo Mantra Care</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item">Overview</a>
+                <a href="#" class="nav-item">Clients</a>
+                <a href="#" class="nav-item">Processes</a>
+                <a href="#" class="nav-item">Call Logs</a>
+                <a href="#" class="nav-item">Appointments</a>
+                <a href="#" class="nav-item">AI Scribe</a>
+                <a href="#" class="nav-item">Settings</a>
+                
+                <div class="nav-section-title">More Modules</div>
+                <a href="#" class="nav-item active">Chats</a>
+                <a href="#" class="nav-item">Invoices</a>
+                <a href="#" class="nav-item">Insurance & Claims</a>
+                <a href="#" class="nav-item">Reports</a>
+                <a href="#" class="nav-item">Knowledge Base</a>
+                <a href="#" class="nav-item">Process Settings</a>
+                <a href="#" class="nav-item">Web Forms</a>
+                <a href="#" class="nav-item">Product/Services</a>
+                <a href="#" class="nav-item">Refer & Earn</a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item">Sign Out</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div class="header-title">
+                    <h1>Chats <span class="badge">OMNICHANNEL</span></h1>
+                    <p>Message clients over WhatsApp and SMS, and set up automated chat campaigns</p>
+                </div>
+                <button class="btn btn-outline">▶ How Chats Works</button>
+            </header>
+
+            <div class="content-layout">
+                <!-- Channels Sidebar -->
+                <div class="channels-sidebar">
+                    <h3>All Channels</h3>
+                    
+                    <div class="channel-group">
+                        <div class="channel-title">WhatsApp</div>
+                        <a href="#" class="channel-item">Inbox</a>
+                        <a href="#" class="channel-item">Templates</a>
+                        <a href="#" class="channel-item">Campaigns</a>
+                    </div>
+                    
+                    <div class="channel-group">
+                        <div class="channel-title">SMS</div>
+                    </div>
+                    
+                    <div class="channel-group active-group">
+                        <div class="channel-title">Website</div>
+                        <a href="inbox.html" class="channel-item active">Inbox</a>
+                        <a href="index.html" class="channel-item">Widget Settings</a>
+                    </div>
+                </div>
+
+                <!-- Inbox Area -->
+                <div class="inbox-area">
+                    <!-- Chat List Panel -->
+                    <div class="chat-list-panel">
+                        <div class="chat-list-header">
+                            <div class="chat-list-title">
+                                <h3>All Numbers <span>▼</span></h3>
+                                <button class="btn-icon-small" style="color: #a855f7; background: #f3e8ff;">✨ Test</button>
+                            </div>
+                            <div class="search-filter-row">
+                                <div class="search-bar">
+                                    <span class="search-icon">🔍</span>
+                                    <input type="text" placeholder="Search conversations...">
+                                </div>
+                                <button class="btn-icon">Y</button>
+                                <button class="btn-icon">≡</button>
+                            </div>
+                            <div class="chat-count">1 Active Chats</div>
+                        </div>
+                        
+                        <div class="chat-list">
+                            <div class="chat-list-item active">
+                                <div class="chat-avatar" style="background: #e0e7ff; color: #4f46e5;">AR</div>
+                                <div class="chat-item-content">
+                                    <div class="chat-item-header">
+                                        <span class="chat-name">Alex Rivera</span>
+                                        <span class="chat-time">2 hours ago</span>
+                                    </div>
+                                    <div class="chat-preview">Do you accept walk-ins?</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Window Panel -->
+                    <div class="chat-window-panel">
+                        <div class="chat-window-header">
+                            <div class="chat-user-info">
+                                <div class="chat-avatar" style="background: #1e293b; color: #fff;">SJ</div>
+                                <div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <strong>Sarah Johnson</strong>
+                                        <span class="badge" style="background: #e0f2fe; color: #0ea5e9;">SMS</span>
+                                    </div>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">5551234567</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" style="font-size: 0.75rem;">Unassigned (Bot Off)</button>
+                        </div>
+                        
+                        <div class="chat-messages">
+                            <div class="message-row out">
+                                <div class="message-bubble out-bubble">
+                                    Hi! This is an SMS reminder regarding your upcoming appointment. Reply YES to confirm or call us if you need to reschedule.
+                                    <div class="message-meta">2026-09-17 09:33:32 7842 ✓</div>
+                                </div>
+                            </div>
+                            
+                            <div class="message-row in">
+                                <div class="message-bubble in-bubble">
+                                    YES, I will be there on time!
+                                    <div class="message-meta">2026-09-17 19:53:32 7847</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input-area">
+                            <button class="btn-icon">📎</button>
+                            <button class="btn-icon">😀</button>
+                            <div class="chat-input-wrapper">
+                                <input type="text" placeholder="Type a message... (Press Enter to send)">
+                            </div>
+                            <button class="btn-send">➤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
