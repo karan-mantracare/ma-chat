@@ -1395,3 +1395,77 @@ label.toggle-switch {
     margin-bottom: 0;
 }
 
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* Hide sidebar by default on mobile, or make it a top nav */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 0;
+    }
+    
+    .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 0.5rem;
+    }
+    
+    .nav-item {
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+
+    .main-content {
+        overflow: visible;
+    }
+
+    .settings-columns {
+        flex-direction: column-reverse;
+        padding: 1rem;
+    }
+
+    .widget-simulator {
+        position: relative;
+        top: 0;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .settings-form {
+        width: 100%;
+    }
+
+    /* Adjust padding for mobile cards */
+    .page-header {
+        padding: 1rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    #widgetSettingsContent, #routingSettingsContent {
+        padding: 1rem;
+    }
+    
+    /* Make custom multi-select stack nicely */
+    #customProfilesList .custom-profile-card > div {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .clickable-avatar {
+        margin-bottom: 1rem;
+    }
+}
+
