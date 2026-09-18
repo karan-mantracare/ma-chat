@@ -1,16 +1,5 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
-  ]
+  "framework": null,
+  "buildCommand": "echo 'Deploying static files'",
+  "outputDirectory": "."
 }
