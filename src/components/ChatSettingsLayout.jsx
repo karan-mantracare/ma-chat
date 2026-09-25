@@ -16,6 +16,7 @@ export default function ChatSettingsLayout() {
 
         <div className="channel-group">
           <div className="channel-title">SMS</div>
+          <NavLink to="/chat-settings/sms/settings" className={({isActive}) => `channel-item ${isActive ? 'active' : ''}`}>Settings</NavLink>
         </div>
 
         <div className="channel-group">

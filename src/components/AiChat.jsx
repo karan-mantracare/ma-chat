@@ -115,15 +115,27 @@ const AiChat = () => {
             </button>
           </div>
         ) : transferredTo ? (
-          <div style={{ padding: '24px 16px', backgroundColor: '#f1f5f9', borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-            <div style={{ color: '#64748b', fontWeight: 'bold' }}>Chat transferred to {transferredTo}</div>
+          <div style={{ borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '8px 16px', backgroundColor: '#f1f5f9', textAlign: 'center', color: '#64748b', fontSize: '12px', fontWeight: 'bold' }}>
+              Chat transferred to {transferredTo}
+            </div>
+            <div className="chat-input" style={{ padding: '16px', backgroundColor: '#ffffff', display: 'flex', gap: '8px' }}>
+              <input 
+                type="text" 
+                placeholder="Type your message..." 
+                style={{ flex: 1, padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', outline: 'none' }}
+              />
+              <button style={{ padding: '12px 24px', backgroundColor: '#0ea5e9', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+                Send
+              </button>
+            </div>
           </div>
         ) : (
           <div className="chat-input" style={{ padding: '16px', backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0', display: 'flex', gap: '8px', alignItems: 'center' }}>
             <div style={{ fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', flex: 1 }}>
               This conversation is currently being handled by the AI Bot...
             </div>
-            <button style={{ padding: '8px 16px', backgroundColor: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            <button onClick={() => setTransferredTo('Karan')} style={{ padding: '8px 16px', backgroundColor: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
               Takeover Chat
             </button>
           </div>

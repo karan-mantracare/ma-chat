@@ -13,6 +13,7 @@ import WebsiteInbox from "./components/WebsiteInbox";
 import WhatsappInbox from "./components/WhatsappInbox";
 import SmsInbox from "./components/SmsInbox";
 import AiChat from "./components/AiChat";
+import SmsSettings from "./components/SmsSettings";
 
 function DefaultLayout({ children }) {
   return (
@@ -75,6 +76,7 @@ export default function App() {
           <Route path="whatsapp/templates/create" element={<CreateTemplate />} />
           <Route path="whatsapp/templates/browse" element={<BrowseTemplates />} />
           <Route path="whatsapp/campaigns" element={<Campaigns />} />
+          <Route path="sms/settings" element={<SmsSettings />} />
           <Route path="website/widget-settings" element={<WidgetSettings />} />
           <Route path="*" element={<div className="settings-area"><h2>Select a setting</h2></div>} />
         </Route>

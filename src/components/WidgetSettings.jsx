@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Check } from "lucide-react";
 import AgentQueueSelect, { agentQueueData } from "../AgentQueueSelect";
 import CustomProfileList from "../CustomProfileList";
 import AutoCreateClient from "../AutoCreateClient";
@@ -13,9 +14,32 @@ export default function WidgetSettings() {
   const [firstResponder, setFirstResponder] = useState("ai");
   const [agentInfo, setAgentInfo] = useState("user");
   const [selectedAgentIds, setSelectedAgentIds] = useState(["u7", "u5"]);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [widgetPosition, setWidgetPosition] = useState("bottom-right");
+
+  const handleCopyCode = () => {
+    const code = `<script>
+(function(w,d,u){
+  var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+  var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+})(window,document,'https://cdn.bitrix24.in/b15041547/crm/site_button/loader_98_00u99i.js');
+</script>`;
+    navigator.clipboard.writeText(code).then(() => {
+      setToastMessage("Widget Code copied");
+      setTimeout(() => setToastMessage(null), 3000);
+    });
+  };
 
   return (
-    <div className="settings-area">
+    <div className="settings-area" style={{ position: "relative" }}>
+      {toastMessage && (
+        <div style={{ position: "fixed", bottom: "32px", right: "32px", zIndex: 1000, backgroundColor: "white", padding: "12px 20px", borderRadius: "8px", boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)", display: "flex", alignItems: "center", gap: "12px", border: "1px solid #e2e8f0", animation: "fadeInSlideUp 0.3s ease-out" }}>
+          <div style={{ width: "20px", height: "20px", borderRadius: "50%", backgroundColor: "#0f172a", color: "white", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Check size={12} strokeWidth={4} />
+          </div>
+          <span style={{ fontSize: "14px", color: "#334155", fontWeight: "500" }}>{toastMessage}</span>
+        </div>
+      )}
       <div className="settings-header">
                 <div>
                   <h2>Website Widget Settings</h2>
@@ -82,6 +106,7 @@ export default function WidgetSettings() {
                         &lt;/script&gt;
                       </div>
                       <button
+                        onClick={handleCopyCode}
                         className="btn btn-primary"
                         style={{
                           background: "#38bdf8",
@@ -90,6 +115,7 @@ export default function WidgetSettings() {
                           padding: "0.5rem 1rem",
                           fontSize: "0.8rem",
                           fontWeight: "600",
+                          cursor: "pointer",
                         }}
                       >
                         COPY TO CLIPBOARD
@@ -1149,13 +1175,13 @@ export default function WidgetSettings() {
                           <span></span>
                         </div>
                         <div className="pos-grid">
-                          <div className="pos-cell">↖</div>
-                          <div className="pos-cell">↑</div>
-                          <div className="pos-cell">↗</div>
-                          <div className="pos-cell">↙</div>
-                          <div className="pos-cell">↓</div>
-                          <div className="pos-cell active">
-                            ↘ <div className="pos-widget-icon">📞</div>
+                          <div className={`pos-cell ${widgetPosition === 'top-left' ? 'active' : ''}`} onClick={() => setWidgetPosition('top-left')} style={{ cursor: "pointer" }}>↖{widgetPosition === 'top-left' && <div className="pos-widget-icon">📞</div>}</div>
+                          <div className={`pos-cell ${widgetPosition === 'top-center' ? 'active' : ''}`} onClick={() => setWidgetPosition('top-center')} style={{ cursor: "pointer" }}>↑{widgetPosition === 'top-center' && <div className="pos-widget-icon">📞</div>}</div>
+                          <div className={`pos-cell ${widgetPosition === 'top-right' ? 'active' : ''}`} onClick={() => setWidgetPosition('top-right')} style={{ cursor: "pointer" }}>↗{widgetPosition === 'top-right' && <div className="pos-widget-icon">📞</div>}</div>
+                          <div className={`pos-cell ${widgetPosition === 'bottom-left' ? 'active' : ''}`} onClick={() => setWidgetPosition('bottom-left')} style={{ cursor: "pointer" }}>↙{widgetPosition === 'bottom-left' && <div className="pos-widget-icon">📞</div>}</div>
+                          <div className={`pos-cell ${widgetPosition === 'bottom-center' ? 'active' : ''}`} onClick={() => setWidgetPosition('bottom-center')} style={{ cursor: "pointer" }}>↓{widgetPosition === 'bottom-center' && <div className="pos-widget-icon">📞</div>}</div>
+                          <div className={`pos-cell ${widgetPosition === 'bottom-right' ? 'active' : ''}`} onClick={() => setWidgetPosition('bottom-right')} style={{ cursor: "pointer" }}>
+                            ↘ {widgetPosition === 'bottom-right' && <div className="pos-widget-icon">📞</div>}
                           </div>
                         </div>
                       </div>
