@@ -1,0 +1,135 @@
+import React, { useState } from 'react';
+import '../index.css';
+
+const AiChat = () => {
+  const [activeClient, setActiveClient] = useState(1);
+  const [isClosed, setIsClosed] = useState(false);
+  const [showTransferDropdown, setShowTransferDropdown] = useState(false);
+  const [transferredTo, setTransferredTo] = useState(null);
+
+  const clients = [
+    { id: 1, name: 'Visitor 1432', lastMessage: 'Are you an AI?' },
+    { id: 2, name: 'Visitor 9081', lastMessage: 'How do I reset my password?' },
+  ];
+
+  return (
+    <div className="inbox-area" style={{ height: '100%', display: 'flex' }}>
+      {/* Left Side: Client List */}
+      <div className="chat-list-panel" style={{ width: '300px', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+        <div className="chat-list-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
+          <div className="search-bar" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', padding: '8px', borderRadius: '8px' }}>
+            <span style={{ marginRight: '8px' }}>🔍</span>
+            <input 
+              type="text" 
+              placeholder="Search AI conversations..." 
+              style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%' }}
+            />
+          </div>
+        </div>
+        <div className="chat-list" style={{ overflowY: 'auto', flex: 1 }}>
+          {clients.map(client => (
+            <div 
+              key={client.id}
+              onClick={() => {
+                setActiveClient(client.id);
+                setIsClosed(false);
+                setShowTransferDropdown(false);
+                setTransferredTo(null);
+              }}
+              style={{ 
+                padding: '16px', 
+                borderBottom: '1px solid #e2e8f0', 
+                cursor: 'pointer',
+                backgroundColor: activeClient === client.id ? '#f1f5f9' : 'transparent'
+              }}
+            >
+              <div style={{ fontWeight: 'bold', color: '#1e293b' }}>{client.name}</div>
+              <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>{client.lastMessage}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Side: Chat Window */}
+      <div className="chat-window" style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#f8fafc' }}>
+        <div className="chat-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0', backgroundColor: '#ffffff', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>🤖</span> AI Bot handling {clients.find(c => c.id === activeClient)?.name}
+          </div>
+          <div style={{ display: 'flex', gap: '8px', position: 'relative' }}>
+            <button onClick={() => setIsClosed(true)} title="Mark As Complete" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✅</button>
+            <button onClick={() => setShowTransferDropdown(!showTransferDropdown)} title="Transfer" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🔄</button>
+            
+            {showTransferDropdown && (
+              <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', width: '200px', zIndex: 10 }}>
+                <div style={{ padding: '8px 12px', fontSize: '12px', color: '#64748b', borderBottom: '1px solid #e2e8f0' }}>Transfer to team member</div>
+                <div style={{ padding: '8px 12px', cursor: 'pointer', fontSize: '14px', fontWeight: 'normal' }} onClick={() => { setTransferredTo('Sarah Connor'); setShowTransferDropdown(false); }}>Sarah Connor</div>
+                <div style={{ padding: '8px 12px', cursor: 'pointer', fontSize: '14px', fontWeight: 'normal' }} onClick={() => { setTransferredTo('John Smith'); setShowTransferDropdown(false); }}>John Smith</div>
+                <div style={{ padding: '8px 12px', cursor: 'pointer', fontSize: '14px', fontWeight: 'normal' }} onClick={() => { setTransferredTo('Emma Watson'); setShowTransferDropdown(false); }}>Emma Watson</div>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="chat-messages" style={{ flex: 1, padding: '16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {activeClient === 1 ? (
+            <>
+              <div style={{ alignSelf: 'flex-start', backgroundColor: '#ffffff', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', maxWidth: '70%' }}>
+                Are you an AI?
+              </div>
+              <div style={{ alignSelf: 'flex-end', display: 'flex', gap: '8px', maxWidth: '70%', flexDirection: 'row-reverse' }}>
+                <div style={{ fontSize: '1.2rem' }}>🤖</div>
+                <div style={{ backgroundColor: '#1e293b', color: 'white', padding: '12px', borderRadius: '8px', borderTopRightRadius: '0' }}>
+                  Yes, I am an AI assistant here to help you! How can I assist you today?
+                </div>
+              </div>
+              <div style={{ alignSelf: 'flex-start', backgroundColor: '#ffffff', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', maxWidth: '70%' }}>
+                I need help with my account setup.
+              </div>
+              <div style={{ alignSelf: 'flex-end', display: 'flex', gap: '8px', maxWidth: '70%', flexDirection: 'row-reverse' }}>
+                <div style={{ fontSize: '1.2rem' }}>🤖</div>
+                <div style={{ backgroundColor: '#1e293b', color: 'white', padding: '12px', borderRadius: '8px', borderTopRightRadius: '0' }}>
+                  I'd be happy to help you with that! Could you please provide your account email address?
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div style={{ alignSelf: 'flex-start', backgroundColor: '#ffffff', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', maxWidth: '70%' }}>
+                How do I reset my password?
+              </div>
+              <div style={{ alignSelf: 'flex-end', display: 'flex', gap: '8px', maxWidth: '70%', flexDirection: 'row-reverse' }}>
+                <div style={{ fontSize: '1.2rem' }}>🤖</div>
+                <div style={{ backgroundColor: '#1e293b', color: 'white', padding: '12px', borderRadius: '8px', borderTopRightRadius: '0' }}>
+                  You can reset your password by clicking on the "Forgot Password" link on the login page. An email will be sent to you with instructions.
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        {isClosed ? (
+          <div style={{ padding: '24px 16px', backgroundColor: '#f1f5f9', borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+            <div style={{ color: '#64748b', fontWeight: 'bold' }}>Chat Closed</div>
+            <button onClick={() => setIsClosed(false)} style={{ padding: '8px 16px', backgroundColor: '#0ea5e9', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+              Start the conversation again
+            </button>
+          </div>
+        ) : transferredTo ? (
+          <div style={{ padding: '24px 16px', backgroundColor: '#f1f5f9', borderTop: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+            <div style={{ color: '#64748b', fontWeight: 'bold' }}>Chat transferred to {transferredTo}</div>
+          </div>
+        ) : (
+          <div className="chat-input" style={{ padding: '16px', backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0', display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <div style={{ fontSize: '0.8rem', color: '#64748b', fontStyle: 'italic', flex: 1 }}>
+              This conversation is currently being handled by the AI Bot...
+            </div>
+            <button style={{ padding: '8px 16px', backgroundColor: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+              Takeover Chat
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AiChat;
