@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CircleCheckBig, ArrowBigRightDash, Search, Bot } from 'lucide-react';
 import '../index.css';
 
 const AiChat = () => {
@@ -18,7 +19,7 @@ const AiChat = () => {
       <div className="chat-list-panel" style={{ width: '300px', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
         <div className="chat-list-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
           <div className="search-bar" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', padding: '8px', borderRadius: '8px' }}>
-            <span style={{ marginRight: '8px' }}>🔍</span>
+            <Search size={16} color="#64748b" style={{ marginRight: '8px' }} />
             <input 
               type="text" 
               placeholder="Search AI conversations..." 
@@ -54,11 +55,11 @@ const AiChat = () => {
       <div className="chat-window" style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: '#f8fafc' }}>
         <div className="chat-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0', backgroundColor: '#ffffff', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span>🤖</span> AI Bot handling {clients.find(c => c.id === activeClient)?.name}
+            <Bot size={20} color="#0ea5e9" /> AI Bot handling {clients.find(c => c.id === activeClient)?.name}
           </div>
           <div style={{ display: 'flex', gap: '8px', position: 'relative' }}>
-            <button onClick={() => setIsClosed(true)} title="Mark As Complete" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✅</button>
-            <button onClick={() => setShowTransferDropdown(!showTransferDropdown)} title="Transfer" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🔄</button>
+            <button onClick={() => setIsClosed(true)} title="Mark As Complete" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a' }}><CircleCheckBig size={18} /></button>
+            <button onClick={() => setShowTransferDropdown(!showTransferDropdown)} title="Transfer" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0ea5e9' }}><ArrowBigRightDash size={18} /></button>
             
             {showTransferDropdown && (
               <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', width: '200px', zIndex: 10 }}>
@@ -77,7 +78,7 @@ const AiChat = () => {
                 Are you an AI?
               </div>
               <div style={{ alignSelf: 'flex-end', display: 'flex', gap: '8px', maxWidth: '70%', flexDirection: 'row-reverse' }}>
-                <div style={{ fontSize: '1.2rem' }}>🤖</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', backgroundColor: '#e0f2fe', borderRadius: '50%' }}><Bot size={18} color="#0ea5e9" /></div>
                 <div style={{ backgroundColor: '#1e293b', color: 'white', padding: '12px', borderRadius: '8px', borderTopRightRadius: '0' }}>
                   Yes, I am an AI assistant here to help you! How can I assist you today?
                 </div>
@@ -86,7 +87,7 @@ const AiChat = () => {
                 I need help with my account setup.
               </div>
               <div style={{ alignSelf: 'flex-end', display: 'flex', gap: '8px', maxWidth: '70%', flexDirection: 'row-reverse' }}>
-                <div style={{ fontSize: '1.2rem' }}>🤖</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', backgroundColor: '#e0f2fe', borderRadius: '50%' }}><Bot size={18} color="#0ea5e9" /></div>
                 <div style={{ backgroundColor: '#1e293b', color: 'white', padding: '12px', borderRadius: '8px', borderTopRightRadius: '0' }}>
                   I'd be happy to help you with that! Could you please provide your account email address?
                 </div>
@@ -98,7 +99,7 @@ const AiChat = () => {
                 How do I reset my password?
               </div>
               <div style={{ alignSelf: 'flex-end', display: 'flex', gap: '8px', maxWidth: '70%', flexDirection: 'row-reverse' }}>
-                <div style={{ fontSize: '1.2rem' }}>🤖</div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', backgroundColor: '#e0f2fe', borderRadius: '50%' }}><Bot size={18} color="#0ea5e9" /></div>
                 <div style={{ backgroundColor: '#1e293b', color: 'white', padding: '12px', borderRadius: '8px', borderTopRightRadius: '0' }}>
                   You can reset your password by clicking on the "Forgot Password" link on the login page. An email will be sent to you with instructions.
                 </div>

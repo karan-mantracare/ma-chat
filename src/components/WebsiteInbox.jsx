@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CircleCheckBig, ArrowBigRightDash, Search } from 'lucide-react';
 import '../index.css';
 
 const WebsiteInbox = () => {
@@ -18,7 +19,7 @@ const WebsiteInbox = () => {
       <div className="chat-list-panel" style={{ width: '300px', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
         <div className="chat-list-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
           <div className="search-bar" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', padding: '8px', borderRadius: '8px' }}>
-            <span style={{ marginRight: '8px' }}>🔍</span>
+            <Search size={16} color="#64748b" style={{ marginRight: '8px' }} />
             <input 
               type="text" 
               placeholder="Search clients..." 
@@ -55,8 +56,8 @@ const WebsiteInbox = () => {
         <div className="chat-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0', backgroundColor: '#ffffff', fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>{clients.find(c => c.id === activeClient)?.name}</div>
           <div style={{ display: 'flex', gap: '8px', position: 'relative' }}>
-            <button onClick={() => setIsClosed(true)} title="Mark As Complete" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✅</button>
-            <button onClick={() => setShowTransferDropdown(!showTransferDropdown)} title="Transfer" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🔄</button>
+            <button onClick={() => setIsClosed(true)} title="Mark As Complete" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a' }}><CircleCheckBig size={18} /></button>
+            <button onClick={() => setShowTransferDropdown(!showTransferDropdown)} title="Transfer" style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0ea5e9' }}><ArrowBigRightDash size={18} /></button>
             
             {showTransferDropdown && (
               <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '8px', background: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', width: '200px', zIndex: 10 }}>
