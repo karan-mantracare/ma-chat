@@ -42,10 +42,12 @@ export default function App() {
                 </p>
               </div>
             </header>
-            <UnifiedChat />
+            <div className="content-layout">
+              <UnifiedChat />
+            </div>
           </DefaultLayout>
         }>
-          <Route path="*" element={<UnifiedChat />} />
+          <Route path="*" element={<div className="content-layout"><UnifiedChat /></div>} />
         </Route>
 
         {/* Chat Settings Routes (Admin/Product Team) */}
@@ -70,7 +72,10 @@ export default function App() {
           <Route path="whatsapp/templates/browse" element={<BrowseTemplates />} />
           <Route path="whatsapp/campaigns" element={<Campaigns />} />
           <Route path="sms/settings" element={<SmsSettings />} />
-          <Route path="website/widget-settings" element={<WidgetSettings />} />
+          <Route path="website/widget-settings" element={<WidgetSettings isNewWidget={true} />} />
+          <Route path="website/created/ai" element={<WidgetSettings defaultResponder="ai" />} />
+          <Route path="website/created/human" element={<WidgetSettings defaultResponder="human" />} />
+          <Route path="website/created/:id" element={<WidgetSettings />} />
           <Route path="*" element={<div className="settings-area"><h2>Select a setting</h2></div>} />
         </Route>
       </Routes>

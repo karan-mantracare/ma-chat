@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Bot, CircleCheckBig, ArrowBigRightDash, Filter, Settings } from 'lucide-react';
 import '../index.css';
@@ -12,6 +12,32 @@ const UnifiedChat = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowFilterMenu(false);
+      }
+    };
+    
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setShowFilterMenu(false);
+      }
+    };
+
+    if (showFilterMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [showFilterMenu]);
 
   // Combined clients from all inboxes
   const clients = [
@@ -25,16 +51,29 @@ const UnifiedChat = () => {
     { id: 8, name: 'Jane Doe', lastMessage: 'Thanks for your help earlier.', channel: 'Chat', color: '#f59e0b', bgColor: '#fef3c7' },
   ];
 
-  const filteredClients = clients.filter(c => {
+  const [customClients, setCustomClients] = useState([]);
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('customClients') || '[]');
+      setCustomClients(stored);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  const allClients = [...customClients, ...clients];
+
+  const filteredClients = allClients.filter(c => {
     const matchesFilter = activeFilter === 'All' || c.channel === activeFilter;
     const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           c.lastMessage.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesFilter && matchesSearch;
   });
-  const activeClientData = clients.find(c => c.id === activeClient) || clients[0];
+  const activeClientData = allClients.find(c => c.id === activeClient) || allClients[0] || clients[0];
 
   return (
-    <div className="inbox-area" style={{ height: 'calc(100vh - 100px)', display: 'flex', width: '100%', background: 'white', borderRadius: '12px', border: '1px solid var(--border-color)', overflow: 'hidden' }}>
+    <div className="inbox-area" style={{ height: '100%', display: 'flex', width: '100%', background: 'white', borderRadius: '12px', border: '1px solid var(--border-color)', overflow: 'hidden' }}>
       {/* Left Side: Unified Client List */}
       <div className="chat-list-panel" style={{ width: '320px', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
         <div className="chat-list-header" style={{ padding: '16px', borderBottom: '1px solid #e2e8f0' }}>
@@ -49,7 +88,7 @@ const UnifiedChat = () => {
                 style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', fontSize: '14px' }}
               />
             </div>
-            <div style={{ position: 'relative' }}>
+            <div style={{ position: 'relative' }} ref={filterRef}>
               <button 
                 onClick={() => setShowFilterMenu(!showFilterMenu)}
                 style={{ padding: '8px 10px', backgroundColor: activeFilter !== 'All' ? '#e0f2fe' : '#f1f5f9', color: activeFilter !== 'All' ? '#0ea5e9' : '#64748b', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -74,7 +113,18 @@ const UnifiedChat = () => {
             </div>
             
             <button 
-              onClick={() => navigate('/chat-settings')}
+              onClick={() => {
+                const channel = activeClientData.channel;
+                if (channel === 'WhatsApp') {
+                  navigate('/chat-settings/whatsapp/templates');
+                } else if (channel === 'SMS') {
+                  navigate('/chat-settings/sms/settings');
+                } else if (channel === 'AI Chat' || channel === 'Chat') {
+                  navigate('/chat-settings/website/widget-settings');
+                } else {
+                  navigate('/chat-settings');
+                }
+              }}
               style={{ padding: '8px 10px', backgroundColor: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background-color 0.2s' }}
               title="Manage Setting of chat (Admin Access only)"
               onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#e2e8f0'; e.currentTarget.style.color = '#334155'; }}
@@ -152,7 +202,7 @@ const UnifiedChat = () => {
           </div>
         </div>
         
-        <div className="chat-messages" style={{ flex: 1, padding: '24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="chat-messages" style={{ flex: 1, padding: '24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px', backgroundColor: '#f8fafc' }}>
           <div style={{ alignSelf: 'center', backgroundColor: '#f1f5f9', color: '#64748b', padding: '6px 12px', borderRadius: '999px', fontSize: '12px', marginBottom: '8px' }}>
             Today
           </div>

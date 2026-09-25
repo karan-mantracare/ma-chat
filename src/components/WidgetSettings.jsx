@@ -5,13 +5,18 @@ import CustomProfileList from "../CustomProfileList";
 import AutoCreateClient from "../AutoCreateClient";
 
 
-export default function WidgetSettings() {
+export default function WidgetSettings({ defaultResponder = "ai", isNewWidget = false }) {
 
   const [themeMode, setThemeMode] = useState("light");
   const [primaryColor, setPrimaryColor] = useState("#0ea5e9");
   const [showWidgetSettings, setShowWidgetSettings] = useState(false);
   const [showRoutingSettings, setShowRoutingSettings] = useState(false);
-  const [firstResponder, setFirstResponder] = useState("ai");
+  const [firstResponder, setFirstResponder] = useState(defaultResponder);
+  const [widgetName, setWidgetName] = useState("");
+
+  React.useEffect(() => {
+    setFirstResponder(defaultResponder);
+  }, [defaultResponder]);
   const [agentInfo, setAgentInfo] = useState("user");
   const [selectedAgentIds, setSelectedAgentIds] = useState(["u7", "u5"]);
   const [toastMessage, setToastMessage] = useState(null);
@@ -42,17 +47,68 @@ export default function WidgetSettings() {
       )}
       <div className="settings-header">
                 <div>
-                  <h2>Website Widget Settings</h2>
+                  <h2>{isNewWidget ? "Create New Website Widget" : "Website Widget Settings"}</h2>
                   <p>
                     Configure theme, custom requirement labels, intake forms,
                     and embed the chatbot on your site.
                   </p>
                 </div>
-                <button className="btn btn-primary">Save Configuration</button>
+                <button 
+                  className="btn btn-primary"
+                  onClick={() => {
+                    if (isNewWidget) {
+                      const newId = Date.now().toString();
+                      const finalWidgetName = widgetName.trim() || (firstResponder === "ai" ? "New AI Widget" : "New Chat Widget");
+                      const newWidget = { id: newId, name: finalWidgetName, responder: firstResponder };
+                      
+                      const existingWidgets = JSON.parse(localStorage.getItem('customWidgets') || '[]');
+                      localStorage.setItem('customWidgets', JSON.stringify([...existingWidgets, newWidget]));
+                      
+                      const existingClients = JSON.parse(localStorage.getItem('customClients') || '[]');
+                      const newClient = {
+                        id: Date.now(),
+                        name: 'Demo Visitor',
+                        lastMessage: 'Hello, I need some help!',
+                        channel: finalWidgetName,
+                        color: firstResponder === "ai" ? '#0ea5e9' : '#f59e0b',
+                        bgColor: firstResponder === "ai" ? '#e0f2fe' : '#fef3c7'
+                      };
+                      localStorage.setItem('customClients', JSON.stringify([newClient, ...existingClients]));
+                      
+                      window.dispatchEvent(new Event('widgetsUpdated'));
+                      
+                      setToastMessage("Widget Created Successfully!");
+                      setTimeout(() => setToastMessage(null), 3000);
+                    } else {
+                      setToastMessage("Configuration Saved");
+                      setTimeout(() => setToastMessage(null), 3000);
+                    }
+                  }}
+                >
+                  {isNewWidget ? "Create a Widget" : "Save Configuration"}
+                </button>
               </div>
 
               <div className="settings-columns">
                 <div className="settings-form">
+                  {/* Widget Name Settings */}
+                  <div className="card">
+                    <div className="card-header-flex" style={{ marginBottom: "1rem" }}>
+                      <h3>Widget Name</h3>
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: '#475569' }}>Internal Name</label>
+                      <input 
+                        type="text" 
+                        className="form-control" 
+                        placeholder={firstResponder === "ai" ? "New AI Widget" : "New Chat Widget"} 
+                        value={widgetName}
+                        onChange={(e) => setWidgetName(e.target.value)}
+                        style={{ width: '100%' }}
+                      />
+                    </div>
+                  </div>
+
                   {/* Embed Widget Code */}
                   <div className="card">
                     <div
