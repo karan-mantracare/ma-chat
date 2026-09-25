@@ -9,10 +9,7 @@ import TemplatesDashboard from "./components/TemplatesDashboard";
 import CreateTemplate from "./components/CreateTemplate";
 import BrowseTemplates from "./components/BrowseTemplates";
 import Campaigns from "./components/Campaigns";
-import WebsiteInbox from "./components/WebsiteInbox";
-import WhatsappInbox from "./components/WhatsappInbox";
-import SmsInbox from "./components/SmsInbox";
-import AiChat from "./components/AiChat";
+import UnifiedChat from "./components/UnifiedChat";
 import SmsSettings from "./components/SmsSettings";
 
 function DefaultLayout({ children }) {
@@ -30,7 +27,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/chat/whatsapp/inbox" replace />} />
+        <Route path="/" element={<Navigate to="/chat" replace />} />
         
         {/* Chat Routes (Team Members) */}
         <Route path="/chat" element={
@@ -45,14 +42,10 @@ export default function App() {
                 </p>
               </div>
             </header>
-            <ChatLayout />
+            <UnifiedChat />
           </DefaultLayout>
         }>
-          <Route index element={<Navigate to="/chat/whatsapp/inbox" replace />} />
-          <Route path="whatsapp/inbox" element={<WhatsappInbox />} />
-          <Route path="sms/inbox" element={<SmsInbox />} />
-          <Route path="website/ai-chat" element={<AiChat />} />
-          <Route path="website/chat" element={<WebsiteInbox />} />
+          <Route path="*" element={<UnifiedChat />} />
         </Route>
 
         {/* Chat Settings Routes (Admin/Product Team) */}
